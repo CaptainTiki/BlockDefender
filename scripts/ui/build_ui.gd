@@ -37,14 +37,16 @@ const BLOCK_DATA: Dictionary = {
 	},
 }
 
-@onready var _inventory_grid:   GridContainer   = %InventoryGrid
-@onready var _inventory_scroll: ScrollContainer = %InventoryScroll
-@onready var _detail_panel:     ItemDetailPanel = %DetailPanel
-@onready var _keep_btn:         Button          = %KeepLayoutBtn
-@onready var _clear_btn:        Button          = %ClearAllBtn
-@onready var _defense_btn:      Button          = %StartDefenseBtn
-@onready var _cones_btn:        CheckButton     = %ShowConesBtn
-@onready var _scrap_label:      Label           = %ScrapLabel
+@onready var _inventory_grid:   GridContainer    = %InventoryGrid
+@onready var _inventory_scroll: ScrollContainer  = %InventoryScroll
+@onready var _detail_panel:     ItemDetailPanel  = %DetailPanel
+@onready var _inspect_panel:    BlockInspectPanel = %InspectPanel
+@onready var _keep_btn:         Button           = %KeepLayoutBtn
+@onready var _clear_btn:        Button           = %ClearAllBtn
+@onready var _defense_btn:      Button           = %StartDefenseBtn
+@onready var _cones_btn:        CheckButton      = %ShowConesBtn
+@onready var _scrap_label:      Label            = %ScrapLabel
+@onready var _mode_label:       Label            = %ModeLabel
 
 var _inventory: Dictionary = {}
 
@@ -73,8 +75,30 @@ func set_build_controls_visible(controls_visible: bool) -> void:
 	_clear_btn.visible        = controls_visible
 	_defense_btn.visible      = controls_visible
 	_cones_btn.visible        = controls_visible
+	_mode_label.visible       = controls_visible
 	if not controls_visible:
 		_detail_panel.hide()
+		_inspect_panel.clear()
+
+## Called by BuildPhase when BlockPlacement switches between build and inspect mode.
+func on_inspect_mode_changed(is_inspect: bool) -> void:
+	if is_inspect:
+		_mode_label.text = "🔍  INSPECT MODE"
+		_mode_label.add_theme_color_override("font_color", Color(0.4, 0.85, 1.0))
+		_detail_panel.hide()
+	else:
+		_mode_label.text = "🔨  BUILD MODE"
+		_mode_label.remove_theme_color_override("font_color")
+		_inspect_panel.clear()
+
+## Show live stats for a placed block in the inspect panel.
+func show_inspect_stats(block_node: Node3D, block_type: String, budget: int) -> void:
+	_detail_panel.hide()
+	_inspect_panel.show_block(block_node, block_type, budget)
+
+## Hide the inspect panel (e.g. when selection is cleared).
+func clear_inspect_panel() -> void:
+	_inspect_panel.clear()
 
 
 func _on_scrap_changed(new_amount: int) -> void:
@@ -91,6 +115,10 @@ func _on_item_selected(block_type: String) -> void:
 	# Only commit to this block type for placement when we have stock.
 	if _inventory.get(block_type, 0) > 0:
 		block_selected.emit(block_type)
+	# Switch right panel back to the static type info / purchase view.
+	_inspect_panel.clear()
+	_mode_label.text = "🔨  BUILD MODE"
+	_mode_label.remove_theme_color_override("font_color")
 	var data: Dictionary = BLOCK_DATA.get(block_type, {
 		"display_name": block_type,
 		"stats": {},

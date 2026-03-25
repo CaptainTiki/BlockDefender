@@ -24,6 +24,16 @@ func _ready() -> void:
 func update_backing_count(count: int) -> void:
 	_backing_count = count
 
+## Returns live combat stats for the inspect panel.
+func get_inspect_stats() -> Dictionary:
+	var total: int = base_damage + _backing_count * damage_per_backer
+	return {
+		"Damage":    "%d  (%d base + %d×%d)" % [total, base_damage, _backing_count, damage_per_backer],
+		"Backers":   str(_backing_count),
+		"Fire Rate": "%.1f / sec" % fire_rate,
+		"Range":     "1 cell",
+	}
+
 func _attack() -> void:
 	var total_damage := base_damage + _backing_count * damage_per_backer
 	for enemy: Node in get_tree().get_nodes_in_group("enemies"):

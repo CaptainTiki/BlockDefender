@@ -87,6 +87,19 @@ func _find_nearest_enemy_in_cone() -> Node3D:
 
 	return best
 
+## Returns live combat stats for the inspect panel.
+func get_inspect_stats() -> Dictionary:
+	var isolation: int     = 6 - _neighbor_count
+	var eff_rate: float    = fire_rate * (1.0 + isolation * isolation_fire_bonus)
+	var stab_factor: float = clamp(float(_stability_budget) / 6.0, 0.0, 1.0)
+	var spread_deg: float  = max_spread_degrees * (1.0 - stab_factor)
+	return {
+		"Fire Rate":  "%.1f / sec" % eff_rate,
+		"Spread":     "%.0f°" % spread_deg,
+		"Neighbors":  "%d / 6" % _neighbor_count,
+		"Range":      "%.0f units" % attack_range,
+	}
+
 ## Adds random directional scatter based on current stability budget.
 ## High budget = stable = no spread. Budget ≤ 0 = full spread.
 func _apply_spread(dir: Vector3) -> Vector3:

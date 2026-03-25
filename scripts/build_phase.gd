@@ -39,6 +39,8 @@ func _ready() -> void:
 	GameEvents.block_destroyed.connect(_on_block_destroyed)
 
 	_placement.block_destroy_requested.connect(_on_destroy_requested)
+	_placement.block_inspect_requested.connect(_on_inspect_requested)
+	_placement.inspect_mode_changed.connect(_ui.on_inspect_mode_changed)
 
 	GameEvents.run_failed.connect(func(): _on_run_ended(false))
 	GameEvents.run_won.connect(func(): _on_run_ended(true))
@@ -107,6 +109,16 @@ func _load_or_init() -> void:
 
 func _on_destroy_requested(grid_pos: Vector3i) -> void:
 	_placement.destroy_block(grid_pos)
+
+func _on_inspect_requested(grid_pos: Vector3i) -> void:
+	# Vector3i(-1,-1,-1) is the "clear selection" sentinel.
+	if grid_pos == Vector3i(-1, -1, -1) or not _placement.grid.has(grid_pos):
+		_ui.clear_inspect_panel()
+		return
+	var block_node: Node3D  = _placement.grid[grid_pos]
+	var block_type: String  = _placement.get_block_type_at(grid_pos)
+	var budget: int         = _stability.get_last_budgets().get(grid_pos, -999)
+	_ui.show_inspect_stats(block_node, block_type, budget)
 
 func _on_clear_all() -> void:
 	_placement.clear_all()

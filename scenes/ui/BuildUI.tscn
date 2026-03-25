@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://buildui"]
 
 [ext_resource type="Script" uid="uid://cyknaeh0nnpqm" path="res://scripts/ui/build_ui.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BlockInspectPanel.tscn" id="8_inspect"]
 [ext_resource type="PackedScene" uid="uid://cfoxywkteb2eq" path="res://scenes/ui/ItemDetailPanel.tscn" id="2_detail"]
 [ext_resource type="Texture2D" uid="uid://clr7ytmdpi6bp" path="res://assets/icons/block_standard.png" id="3_e8fgg"]
 [ext_resource type="PackedScene" uid="uid://bfwyhb46ie7wl" path="res://scenes/ui/InventoryItem.tscn" id="3_invitem"]
@@ -33,6 +34,12 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Inventory"
+
+[node name="ModeLabel" type="Label" parent="InventoryPanel/Margin/VBox" unique_id=112233445]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "🔨  BUILD MODE"
 
 [node name="ScrapLabel" type="Label" parent="InventoryPanel/Margin/VBox" unique_id=881234567]
 unique_name_in_owner = true
@@ -108,7 +115,18 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -152.0
+offset_left = -200.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InspectPanel" parent="." unique_id=556677889 instance=ExtResource("8_inspect")]
+unique_name_in_owner = true
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2

@@ -25,6 +25,8 @@ var _selected_rotation: int = 0        # 0-3 (×90° Y steps)
 var _ghost: Node3D = null
 
 signal block_destroy_requested(grid_pos: Vector3i)
+signal block_inspect_requested(grid_pos: Vector3i)   # Vector3i(-1,-1,-1) = clear selection
+signal inspect_mode_changed(is_inspect: bool)
 
 # Pre-created materials — reused every tint pass, never allocated per-frame.
 var _mat_ghost_ok    := StandardMaterial3D.new()
@@ -49,15 +51,35 @@ func _ready() -> void:
 	_spawn_ghost()
 
 var _building_enabled: bool = true
+var _inspect_mode: bool     = false
 
 func set_building_enabled(enabled: bool) -> void:
 	_building_enabled = enabled
 	if not enabled:
 		_set_ghost_visible(false)
+		if _inspect_mode:
+			_exit_inspect_mode()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _building_enabled:
 		return
+
+	# Escape toggles between build and inspect mode.
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		if _inspect_mode:
+			_exit_inspect_mode()
+		else:
+			_enter_inspect_mode()
+		return
+
+	if _inspect_mode:
+		if event is InputEventMouseButton and event.pressed:
+			match event.button_index:
+				MOUSE_BUTTON_LEFT:  _try_inspect()
+				MOUSE_BUTTON_RIGHT: block_inspect_requested.emit(Vector3i(-1, -1, -1))
+		return
+
+	# --- Build mode input ---
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
@@ -66,12 +88,34 @@ func _unhandled_input(event: InputEvent) -> void:
 				_try_remove()
 	elif event is InputEventKey and event.pressed:
 		match event.keycode:
-			KEY_DELETE:
-				_try_destroy()
-			KEY_Q:
-				_selected_rotation = (_selected_rotation - 1 + 4) % 4
-			KEY_E:
-				_selected_rotation = (_selected_rotation + 1) % 4
+			KEY_DELETE: _try_destroy()
+			KEY_Q:      _selected_rotation = (_selected_rotation - 1 + 4) % 4
+			KEY_E:      _selected_rotation = (_selected_rotation + 1) % 4
+
+func _enter_inspect_mode() -> void:
+	_inspect_mode = true
+	# Destroy the ghost so nothing follows the cursor in inspect mode.
+	if _ghost:
+		_ghost.queue_free()
+		_ghost = null
+	inspect_mode_changed.emit(true)
+
+func _exit_inspect_mode() -> void:
+	_inspect_mode = false
+	block_inspect_requested.emit(Vector3i(-1, -1, -1))  # clear panel
+	_spawn_ghost()
+	inspect_mode_changed.emit(false)
+
+func _try_inspect() -> void:
+	var result := _raycast(block_layer)
+	if result.is_empty():
+		block_inspect_requested.emit(Vector3i(-1, -1, -1))
+		return
+	var grid_pos := _world_to_grid(result["position"] - result["normal"] * 0.1)
+	if grid.has(grid_pos):
+		block_inspect_requested.emit(grid_pos)
+	else:
+		block_inspect_requested.emit(Vector3i(-1, -1, -1))
 
 func _process(_delta: float) -> void:
 	_update_ghost()
@@ -176,6 +220,8 @@ func _spawn_ghost() -> void:
 		(_ghost as StaticBody3D).collision_mask = 0
 
 func _update_ghost() -> void:
+	if _inspect_mode or _ghost == null:
+		return
 	var result := _raycast(ground_layer | block_layer)
 	if result.is_empty():
 		_set_ghost_visible(false)
@@ -247,6 +293,9 @@ func get_inventory() -> Dictionary:
 	return _inventory
 
 func select_block_type(type: String) -> void:
+	# Clicking an inventory item always returns to build mode.
+	if _inspect_mode:
+		_exit_inspect_mode()
 	if type == _selected_type:
 		return
 	_selected_type = type
