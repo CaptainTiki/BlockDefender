@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://buildui"]
 
 [ext_resource type="Script" uid="uid://cyknaeh0nnpqm" path="res://scripts/ui/build_ui.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/ui/BlockInspectPanel.tscn" id="8_inspect"]
 [ext_resource type="PackedScene" uid="uid://cfoxywkteb2eq" path="res://scenes/ui/ItemDetailPanel.tscn" id="2_detail"]
 [ext_resource type="Texture2D" uid="uid://clr7ytmdpi6bp" path="res://assets/icons/block_standard.png" id="3_e8fgg"]
 [ext_resource type="PackedScene" uid="uid://bfwyhb46ie7wl" path="res://scenes/ui/InventoryItem.tscn" id="3_invitem"]
@@ -9,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://bp7eunc28vde4" path="res://assets/icons/block_standard_hover.png" id="5_xfql8"]
 [ext_resource type="Texture2D" uid="uid://cpdusv045rmyt" path="res://assets/icons/block_disabled.png" id="6_ktfo3"]
 [ext_resource type="Texture2D" uid="uid://d3p5pg1jucmcy" path="res://assets/icons/block_standard_selected.png" id="7_ljerj"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BlockInspectPanel.tscn" id="8_inspect"]
+[ext_resource type="Texture2D" uid="uid://cmhjo8jn673am" path="res://assets/icons/block_archer.png" id="8_po5xt"]
+[ext_resource type="Texture2D" uid="uid://v56owqv15n4w" path="res://assets/icons/block_spear.png" id="9_j43vx"]
+[ext_resource type="Texture2D" uid="uid://7ugmysq6npf" path="res://assets/icons/block_armor.png" id="10_cyag3"]
 
 [node name="BuildUI" type="CanvasLayer" unique_id=898594659]
 script = ExtResource("1_script")
@@ -71,17 +74,17 @@ block_type = "basic"
 
 [node name="ArcherTower" parent="InventoryPanel/Margin/VBox/InventoryScroll/InventoryGrid" unique_id=395853068 instance=ExtResource("3_invitem")]
 layout_mode = 2
-texture_normal = ExtResource("3_e8fgg")
+texture_normal = ExtResource("8_po5xt")
 block_type = "archer"
 
 [node name="MeleeTower" parent="InventoryPanel/Margin/VBox/InventoryScroll/InventoryGrid" unique_id=544917421 instance=ExtResource("3_invitem")]
 layout_mode = 2
-texture_normal = ExtResource("3_e8fgg")
+texture_normal = ExtResource("9_j43vx")
 block_type = "melee"
 
 [node name="ArmorBlock" parent="InventoryPanel/Margin/VBox/InventoryScroll/InventoryGrid" unique_id=2039639751 instance=ExtResource("3_invitem")]
 layout_mode = 2
-texture_normal = ExtResource("3_e8fgg")
+texture_normal = ExtResource("10_cyag3")
 block_type = "armor"
 
 [node name="Spacer" type="Control" parent="InventoryPanel/Margin/VBox" unique_id=172443451]

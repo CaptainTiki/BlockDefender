@@ -85,7 +85,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			MOUSE_BUTTON_LEFT:
 				_try_place()
 			MOUSE_BUTTON_RIGHT:
-				_try_remove()
+				# Hit a block → remove it. Miss → drop out of build mode.
+				if not _try_remove():
+					_enter_inspect_mode()
 	elif event is InputEventKey and event.pressed:
 		match event.keycode:
 			KEY_DELETE: _try_destroy()
@@ -159,14 +161,15 @@ func _on_block_health_died(grid_pos: Vector3i) -> void:
 
 # --- Removal & Destruction ---
 
-func _try_remove() -> void:
+func _try_remove() -> bool:
 	var result := _raycast(block_layer)
 	if result.is_empty():
-		return
+		return false
 	var grid_pos := _world_to_grid(result["position"] - result["normal"] * 0.1)
 	if not grid.has(grid_pos):
-		return
+		return false
 	_remove_block(grid_pos)
+	return true
 
 func _remove_block(grid_pos: Vector3i) -> void:
 	grid[grid_pos].queue_free()
