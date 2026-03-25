@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://buildui"]
+
+[ext_resource type="Script" uid="uid://cyknaeh0nnpqm" path="res://scripts/ui/build_ui.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://cfoxywkteb2eq" path="res://scenes/ui/ItemDetailPanel.tscn" id="2_detail"]
+[ext_resource type="Texture2D" uid="uid://clr7ytmdpi6bp" path="res://assets/icons/block_standard.png" id="3_e8fgg"]
+[ext_resource type="PackedScene" uid="uid://bfwyhb46ie7wl" path="res://scenes/ui/InventoryItem.tscn" id="3_invitem"]
+[ext_resource type="Texture2D" uid="uid://jiswvgoeftjc" path="res://assets/icons/block_standard_pressed.png" id="4_iu3wy"]
+[ext_resource type="Texture2D" uid="uid://bp7eunc28vde4" path="res://assets/icons/block_standard_hover.png" id="5_xfql8"]
+[ext_resource type="Texture2D" uid="uid://cpdusv045rmyt" path="res://assets/icons/block_disabled.png" id="6_ktfo3"]
+[ext_resource type="Texture2D" uid="uid://d3p5pg1jucmcy" path="res://assets/icons/block_standard_selected.png" id="7_ljerj"]
+
+[node name="BuildUI" type="CanvasLayer" unique_id=898594659]
+script = ExtResource("1_script")
+
+[node name="InventoryPanel" type="PanelContainer" parent="." unique_id=1953555862]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 220.0
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="InventoryPanel" unique_id=922637155]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="InventoryPanel/Margin" unique_id=183874489]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="InventoryPanel/Margin/VBox" unique_id=407099508]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Inventory"
+
+[node name="ScrapLabel" type="Label" parent="InventoryPanel/Margin/VBox" unique_id=881234567]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Scrap: 0"
+
+[node name="InventoryScroll" type="ScrollContainer" parent="InventoryPanel/Margin/VBox" unique_id=1634545941]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="InventoryPanel/Margin/VBox/InventoryScroll" unique_id=1723538806]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+columns = 2
+
+[node name="BasicBlock" parent="InventoryPanel/Margin/VBox/InventoryScroll/InventoryGrid" unique_id=967871713 instance=ExtResource("3_invitem")]
+layout_mode = 2
+texture_normal = ExtResource("3_e8fgg")
+texture_pressed = ExtResource("4_iu3wy")
+texture_hover = ExtResource("5_xfql8")
+texture_disabled = ExtResource("6_ktfo3")
+texture_focused = ExtResource("7_ljerj")
+block_type = "basic"
+
+[node name="ArcherTower" parent="InventoryPanel/Margin/VBox/InventoryScroll/InventoryGrid" unique_id=395853068 instance=ExtResource("3_invitem")]
+layout_mode = 2
+texture_normal = ExtResource("3_e8fgg")
+block_type = "archer"
+
+[node name="MeleeTower" parent="InventoryPanel/Margin/VBox/InventoryScroll/InventoryGrid" unique_id=544917421 instance=ExtResource("3_invitem")]
+layout_mode = 2
+texture_normal = ExtResource("3_e8fgg")
+block_type = "melee"
+
+[node name="ArmorBlock" parent="InventoryPanel/Margin/VBox/InventoryScroll/InventoryGrid" unique_id=2039639751 instance=ExtResource("3_invitem")]
+layout_mode = 2
+texture_normal = ExtResource("3_e8fgg")
+block_type = "armor"
+
+[node name="Spacer" type="Control" parent="InventoryPanel/Margin/VBox" unique_id=172443451]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="KeepLayoutBtn" type="Button" parent="InventoryPanel/Margin/VBox" unique_id=1542346990]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Keep Previous Layout"
+
+[node name="ClearAllBtn" type="Button" parent="InventoryPanel/Margin/VBox" unique_id=490845741]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clear All"
+
+[node name="ShowConesBtn" type="CheckButton" parent="InventoryPanel/Margin/VBox" unique_id=876486289]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Attack Cones"
+
+[node name="StartDefenseBtn" type="Button" parent="InventoryPanel/Margin/VBox" unique_id=1919406173]
+unique_name_in_owner = true
+layout_mode = 2
+text = "▶ Start Defense"
+
+[node name="DetailPanel" parent="." unique_id=605602311 instance=ExtResource("2_detail")]
+unique_name_in_owner = true
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2

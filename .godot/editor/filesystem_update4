@@ -1,0 +1,9 @@
+res://scenes/ui/BuildUI.tscn
+res://scripts/block_archer.gd
+res://scripts/block_health.gd
+res://scripts/block_placement.gd
+res://scripts/build_phase.gd
+res://scripts/stability_checker.gd
+res://scripts/ui/build_ui.gd
+res://scripts/wave_spawner.gd
+res://scripts/save_system.gd

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cexutedt2tq63"]
+
+[ext_resource type="Script" uid="uid://cy7bgw604f7fs" path="res://scenes/blocks/attack_cone_visual.gd" id="1_3us4f"]
+
+[sub_resource type="StandardMaterial3D" id="ConeMaterial_1"]
+transparency = 1
+albedo_color = Color(0.35, 0.85, 1.0, 0.18)
+shading_mode = 2
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.0
+bottom_radius = 1.0
+height = 1.0
+
+[node name="ConeVisual" type="Node3D" unique_id=1019234512]
+script = ExtResource("1_3us4f")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=152027708]
+material_override = SubResource("ConeMaterial_1")
+mesh = SubResource("CylinderMesh_1")

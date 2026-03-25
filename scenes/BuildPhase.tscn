@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://buildphase"]
+
+[ext_resource type="Script" uid="uid://th2yc6q3vsvn" path="res://scripts/build_phase.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://renabase" path="res://scenes/arena/ArenaBase.tscn" id="2_arena"]
+[ext_resource type="PackedScene" uid="uid://camerarig" path="res://scenes/camera/CameraRig.tscn" id="3_cam"]
+[ext_resource type="PackedScene" uid="uid://buildui" path="res://scenes/ui/BuildUI.tscn" id="4_ui"]
+[ext_resource type="PackedScene" path="res://scenes/blocks/block_basic.tscn" id="5_block"]
+[ext_resource type="Script" uid="uid://b4h6gecv15lrk" path="res://scripts/block_placement.gd" id="6_placement"]
+[ext_resource type="PackedScene" path="res://scenes/blocks/block_archer.tscn" id="7_efypw"]
+[ext_resource type="Script" uid="uid://bvxqwu710kdwl" path="res://scripts/save_system.gd" id="7_save"]
+[ext_resource type="Script" uid="uid://56f0a14ufktb" path="res://scripts/stability_checker.gd" id="8_stability"]
+[ext_resource type="Script" uid="uid://ccjkwmu72oeff" path="res://scripts/collapse_propagator.gd" id="9_propagator"]
+[ext_resource type="PackedScene" path="res://scenes/blocks/block_falling.tscn" id="10_falling"]
+[ext_resource type="PackedScene" uid="uid://gueyi1o2mbi5" path="res://scenes/enemies/enemy_rusher.tscn" id="11_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/WaveSpawner.tscn" id="12_wave"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_flyer.tscn" id="16_flyer"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_brute.tscn" id="17_brute"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DefenseHud.tscn" id="13_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ResolutionPanel.tscn" id="14_res"]
+[ext_resource type="PackedScene" path="res://scenes/blocks/block_cornerstone.tscn" id="15_cornerstone"]
+
+[node name="BuildPhase" type="Node3D" unique_id=1046956577]
+script = ExtResource("1_script")
+cornerstone_scene = ExtResource("15_cornerstone")
+
+[node name="ArenaBase" parent="." unique_id=1351716700 instance=ExtResource("2_arena")]
+
+[node name="CameraRig" parent="." unique_id=687576928 instance=ExtResource("3_cam")]
+transform = Transform3D(0.7073882, -0.33887005, 0.62029743, 0, 0.87758255, 0.47942555, -0.7068252, -0.33914, 0.62079155, 5, 5, 5)
+
+[node name="BlockPlacement" type="Node3D" parent="." unique_id=911526102]
+script = ExtResource("6_placement")
+basic_scene = ExtResource("5_block")
+archer_scene = ExtResource("7_efypw")
+
+[node name="StabilityChecker" type="Node" parent="." unique_id=1227220473]
+script = ExtResource("8_stability")
+
+[node name="CollapsePropagator" type="Node" parent="." unique_id=1234360972]
+script = ExtResource("9_propagator")
+falling_block_scene = ExtResource("10_falling")
+
+[node name="SaveSystem" type="Node" parent="." unique_id=1609385670]
+script = ExtResource("7_save")
+
+[node name="BuildUI" parent="." unique_id=1524902901 instance=ExtResource("4_ui")]
+
+[node name="WaveSpawner" parent="." instance=ExtResource("12_wave")]
+enemy_scenes = Array[PackedScene]([ExtResource("11_enemy"), ExtResource("16_flyer"), ExtResource("17_brute")])
+
+[node name="DefenseHud" parent="." instance=ExtResource("13_hud")]
+
+[node name="ResolutionPanel" parent="." instance=ExtResource("14_res")]

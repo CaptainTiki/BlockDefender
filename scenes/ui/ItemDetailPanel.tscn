@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cfoxywkteb2eq"]
+
+[ext_resource type="Script" uid="uid://cbj5tg85ksv8e" path="res://scripts/ui/item_detail_panel.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://clr7ytmdpi6bp" path="res://assets/icons/block_standard.png" id="2_gccwd"]
+
+[node name="ItemDetailPanel" type="PanelContainer" unique_id=367076532]
+script = ExtResource("1_script")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=2003511214]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=391467460]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BlockNameLabel" type="Label" parent="Margin/VBox" unique_id=5366405]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Select a block"
+horizontal_alignment = 1
+
+[node name="IconRect" type="TextureRect" parent="Margin/VBox" unique_id=1542506433]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_gccwd")
+stretch_mode = 5
+
+[node name="StatsGrid" type="GridContainer" parent="Margin/VBox" unique_id=59801442]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="HP_Label" type="Label" parent="Margin/VBox/StatsGrid" unique_id=675002992]
+layout_mode = 2
+text = "HP: "
+
+[node name="Control" type="Control" parent="Margin/VBox/StatsGrid" unique_id=2005502444]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HP_Value" type="Label" parent="Margin/VBox/StatsGrid" unique_id=183638356]
+layout_mode = 2
+text = "20"
+
+[node name="Armor_Label" type="Label" parent="Margin/VBox/StatsGrid" unique_id=1063193481]
+layout_mode = 2
+text = "Armor: "
+
+[node name="Control2" type="Control" parent="Margin/VBox/StatsGrid" unique_id=1851981191]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Armor_Value" type="Label" parent="Margin/VBox/StatsGrid" unique_id=164561559]
+layout_mode = 2
+text = "0"
+
+[node name="HSeparator" type="HSeparator" parent="Margin/VBox" unique_id=702803454]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Margin/VBox" unique_id=14067466]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 23)
+layout_mode = 2
+text = "test fluff text"
+autowrap_mode = 3
+
+[node name="Spacer" type="Control" parent="Margin/VBox" unique_id=587045103]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PurchaseBtn" type="Button" parent="Margin/VBox" unique_id=907637977]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Purchase More"

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dfocublhprcfx"]
+
+[ext_resource type="Script" uid="uid://csp5sghm1snyx" path="res://scripts/block_foundation.gd" id="1_script"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_foundation"]
+albedo_color = Color(0.45, 0.28, 0.12, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+
+[node name="BlockFoundation" type="StaticBody3D" unique_id=1804432439]
+collision_mask = 0
+script = ExtResource("1_script")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1327753168]
+mesh = SubResource("BoxMesh_1")
+surface_material_override/0 = SubResource("Mat_foundation")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=979788044]
+shape = SubResource("BoxShape3D_1")

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dtve0r2dd1haf"]
+
+[ext_resource type="Script" uid="uid://dwdcwjoqreu7b" path="res://scripts/ui/defense_hud.gd" id="1_script"]
+
+[node name="DefenseHud" type="CanvasLayer" unique_id=583583705]
+script = ExtResource("1_script")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1423272914]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 120.0
+mouse_filter = 2
+
+[node name="WaveLabel" type="Label" parent="VBox" unique_id=1426073278]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="VBox" unique_id=2061904733]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1

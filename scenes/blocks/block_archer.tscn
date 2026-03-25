@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://p07pirytvoxt"]
+
+[ext_resource type="PackedScene" uid="uid://cxivl0p2ktf3l" path="res://assets/models/blocks/block_archer.glb" id="1_glb"]
+[ext_resource type="Script" uid="uid://dhdyixm5tsg2g" path="res://scripts/block_archer.gd" id="2_script"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/projectile_arrow.tscn" id="2_uin1m"]
+[ext_resource type="Script" uid="uid://b5gq027ibp8t" path="res://scripts/block_health.gd" id="3_health"]
+[ext_resource type="PackedScene" path="res://scenes/blocks/AttackConeVisual.tscn" id="4_cone"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+
+[node name="BlockArcher" type="StaticBody3D" unique_id=1602340958]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_script")
+projectile_scene = ExtResource("2_uin1m")
+
+[node name="Mesh" parent="." unique_id=1712841548 instance=ExtResource("1_glb")]
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=650325348]
+shape = SubResource("BoxShape3D_1")
+
+[node name="BlockHealth" type="Node" parent="." unique_id=1872038558]
+script = ExtResource("3_health")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=133107058]
+
+[node name="ConeVisual" parent="." instance=ExtResource("4_cone")]

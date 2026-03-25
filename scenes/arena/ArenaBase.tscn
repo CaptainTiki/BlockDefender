@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://renabase"]
+
+[ext_resource type="PackedScene" uid="uid://dfocublhprcfx" path="res://scenes/blocks/block_foundation.tscn" id="1_foundation"]
+[ext_resource type="PackedScene" path="res://scenes/blocks/block_cornerstone.tscn" id="2_cornerstone"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xi6p4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = SubResource("StandardMaterial3D_xi6p4")
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(20, 0.5, 20)
+
+[node name="ArenaBase" type="Node3D" unique_id=2006808933]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=405665160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground" unique_id=13002689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_1")
+
+[node name="Collision" type="CollisionShape3D" parent="Ground" unique_id=1227982949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1970405128]
+transform = Transform3D(0.6364365, 0.621136, -0.45731694, -0.0936179, 0.65071595, 0.75352806, 0.76562667, -0.43675983, 0.47228873, 0, 10, 0)
+light_energy = 0.75
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1544854757]
+transform = Transform3D(0.8862645, -0.35356495, 0.29921046, -0.43103644, -0.39312494, 0.8121947, -0.16953665, -0.84879017, -0.5008122, 6.8003817, 10, 7.136457)
+light_energy = 0.25
+shadow_enabled = true
+
+[node name="FoundationBlocks" type="Node3D" parent="." unique_id=1029937132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="F_n1_n1" parent="FoundationBlocks" unique_id=153834715 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.5)
+
+[node name="F_0_n1" parent="FoundationBlocks" unique_id=826226430 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -0.5)
+
+[node name="F_1_n1" parent="FoundationBlocks" unique_id=148762782 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, -0.5)
+
+[node name="F_n1_0" parent="FoundationBlocks" unique_id=108650358 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0.5)
+
+[node name="Cornerstone" parent="FoundationBlocks" unique_id=1450115318 instance=ExtResource("2_cornerstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, 0.5)
+
+[node name="F_1_0" parent="FoundationBlocks" unique_id=152972682 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 0.5)
+
+[node name="F_n1_1" parent="FoundationBlocks" unique_id=581172691 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 1.5)
+
+[node name="F_0_1" parent="FoundationBlocks" unique_id=375662430 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1.5)
+
+[node name="F_0_2" parent="FoundationBlocks" unique_id=1804432439 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+
+[node name="F_1_1" parent="FoundationBlocks" unique_id=927651472 instance=ExtResource("1_foundation")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 1.5)

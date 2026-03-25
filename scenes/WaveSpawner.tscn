@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/wave_spawner.gd" id="1_script"]
+
+[node name="WaveSpawner" type="Node"]
+script = ExtResource("1_script")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BetweenWavesTimer" type="Timer" parent="."]
+one_shot = true
